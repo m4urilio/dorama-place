@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>DoramaPlace | Meu Falso Divorcio</title>
+    <meta name="description" content="Assista Meu Falso Divorcio e os melhores doramas legendados em portugues. Sua plataforma favorita de doramas coreanos.">
+    <meta name="theme-color" content="#0B0F1A">
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading" class="loading-screen">
+        <div class="loader">
+            <div class="loader-spinner"></div>
+            <p>Carregando doramas...</p>
+            <div class="loader-bar"><div class="loader-bar-fill" id="loader-bar-fill"></div></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="#" class="logo">
+                <img src="img/favicon.svg" alt="Logo" class="logo-img">
+                <span class="logo-text">Dorama<span class="logo-accent">Place</span></span>
+            </a>
+
+            <div class="search-container">
+                <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18">
+                    <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <input type="text" id="search-input" placeholder="Buscar doramas..." autocomplete="off">
+                <div id="search-results" class="search-results"></div>
+            </div>
+
+            <div class="nav-links" id="nav-links">
+                <a href="#hero">Inicio</a>
+                <a href="#em-destaque">Destaque</a>
+                <a href="#catalogo">Catalogo</a>
+
+            </div>
+
+            <button class="menu-toggle" id="menu-toggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero" id="hero">
+        <div class="hero-bg" id="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content container">
+            <span class="hero-badge">&#10024; Em Destaque</span>
+            <h1 class="hero-title" id="hero-title">Meu Falso Divorcio</h1>
+            <p class="hero-channel" id="hero-channel"></p>
+            <button class="hero-btn" id="hero-btn">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                Assistir Agora
+            </button>
+        </div>
+        <button class="hero-nav hero-nav-left" id="hero-prev" aria-label="Anterior">
+            <svg viewBox="0 0 24 24" width="22" height="22"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="hero-nav hero-nav-right" id="hero-next" aria-label="Proximo">
+            <svg viewBox="0 0 24 24" width="22" height="22"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="hero-dots" id="hero-dots"></div>
+    </section>
+
+    <!-- Roleta -->
+    <section class="section roulette-section" id="roleta">
+        <div class="container">
+            <h2 class="section-title"><span class="section-icon">&#127922;</span> Escolha seu Dorama</h2>
+            <p class="roulette-subtitle">Clique em girar e descubra qual dorama assistir!</p>
+            <div class="roulette-wrapper">
+                <div class="roulette-pointer-wrap">
+                    <div class="roulette-pointer"></div>
+                </div>
+                <canvas id="roulette-canvas"></canvas>
+                <button class="roulette-spin-btn" id="roulette-spin">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+                    Girar
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Em Destaque -->
+    <section class="section" id="em-destaque">
+        <div class="container">
+            <h2 class="section-title"><span class="section-icon">&#11088;</span> Em Destaque</h2>
+            <div class="carousel-wrapper">
+                <button class="carousel-btn carousel-btn-left" data-target="featured-carousel" data-dir="-1" aria-label="Anterior">
+                    <svg viewBox="0 0 24 24" width="20" height="20"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <div class="carousel" id="featured-carousel"></div>
+                <button class="carousel-btn carousel-btn-right" data-target="featured-carousel" data-dir="1" aria-label="Proximo">
+                    <svg viewBox="0 0 24 24" width="20" height="20"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalogo -->
+    <section class="section" id="catalogo">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title"><span class="section-icon">&#127916;</span> Catalogo</h2>
+                <span class="video-count" id="video-count"></span>
+            </div>
+            <div class="category-tabs" id="category-tabs"></div>
+            <div class="grid" id="catalog-grid"></div>
+        </div>
+    </section>
+
+
+
+    <!-- Modal Player -->
+    <div class="modal" id="modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-container">
+            <button class="modal-close" aria-label="Fechar">&#10005;</button>
+            <div class="modal-player">
+                <iframe id="player-iframe" src="" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+            <div class="modal-body">
+                <h2 class="modal-title" id="modal-title"></h2>
+                <div class="modal-meta">
+                    <p class="modal-channel" id="modal-channel"></p>
+                    <span class="modal-badge" id="modal-badge"></span>
+                </div>
+            </div>
+            <div class="modal-suggestions">
+                <h3>Voce tambem pode gostar</h3>
+                <div class="suggestions-row" id="suggestions-row"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Support Modal -->
+    <div class="support-modal" id="support-modal">
+        <div class="support-backdrop"></div>
+        <div class="support-box">
+            <button class="support-close" id="support-close" aria-label="Fechar">&#10005;</button>
+            <div class="support-icon-wrap">
+                <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <h3>Precisa de ajuda?</h3>
+            <p>Envie um e-mail explicando seu problema para:</p>
+            <div class="support-email-box">
+                <span id="support-email">suporteaocliente0012@gmail.com</span>
+                <button class="support-copy-btn" id="support-copy-btn" aria-label="Copiar e-mail">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                    <span id="copy-label">Copiar</span>
+                </button>
+            </div>
+            <p class="support-note">Responderemos em ate 24 horas.</p>
+        </div>
+    </div>
+
+    <!-- Support Button -->
+    <button class="support-btn" id="support-btn" aria-label="Suporte">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    </button>
+
+
+
+    <!-- TikTok Player (Mobile) -->
+    <div class="tiktok-player" id="tiktok-player">
+        <button class="tiktok-close" id="tiktok-close">&#10005;</button>
+        <div class="tiktok-swipe-area" id="tiktok-swipe-area">
+            <div class="tiktok-video-wrap" id="tiktok-video-wrap">
+                <div class="tiktok-video-frame">
+                    <iframe id="tiktok-iframe" src="" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen playsinline></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="tiktok-info">
+            <span class="tiktok-badge" id="tiktok-badge"></span>
+            <h3 id="tiktok-title"></h3>
+            <p id="tiktok-channel"></p>
+        </div>
+        <div class="tiktok-nav">
+            <button class="tiktok-nav-btn" id="tiktok-prev" aria-label="Anterior">
+                <svg viewBox="0 0 24 24" width="24" height="24"><path d="M18 15l-6-6-6 6" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="tiktok-nav-btn" id="tiktok-next" aria-label="Proximo">
+                <svg viewBox="0 0 24 24" width="24" height="24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+        </div>
+        <p class="tiktok-swipe-hint">Deslize para cima ou para baixo</p>
+    </div>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="back-to-top" aria-label="Voltar ao topo">
+        <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 19V5m0 0l-6 6m6-6l6 6" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <img src="img/favicon.svg" alt="Logo" class="logo-img">
+                <span class="logo-text">Dorama<span class="logo-accent">Place</span></span>
+            </div>
+            <p class="footer-text">Sua plataforma favorita de doramas legendados</p>
+            <p class="footer-copy">&copy; 2026 DoramaPlace. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>
