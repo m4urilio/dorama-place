@@ -487,9 +487,9 @@ var rouletteAudioCtx;
 var rouletteSize = 340;
 
 var ROULETTE_COLORS = [
-    '#1A2540', '#5B8FE7', '#0F1525', '#3A6DD4',
-    '#151A28', '#4A7AD4', '#1E2A45', '#6E9EE9',
-    '#0B1020', '#2A4A8A', '#182340', '#3D6DD8'
+    '#1A1A0B', '#E7B84A', '#0F1510', '#D4A030',
+    '#151A14', '#C89520', '#1E2518', '#E9C95E',
+    '#0B1008', '#8A7020', '#182010', '#D8A838'
 ];
 
 function setupRoulette() {
@@ -570,8 +570,8 @@ function drawRouletteWheel() {
     ctx.beginPath();
     ctx.arc(0, 0, 22, 0, 2 * Math.PI);
     var grad = ctx.createLinearGradient(-22, -22, 22, 22);
-    grad.addColorStop(0, '#5B8FE7');
-    grad.addColorStop(1, '#3A6DD4');
+    grad.addColorStop(0, '#E7B84A');
+    grad.addColorStop(1, '#D4A030');
     ctx.fillStyle = grad;
     ctx.fill();
     ctx.fillStyle = '#fff';
