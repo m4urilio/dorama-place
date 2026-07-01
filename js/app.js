@@ -44,60 +44,16 @@ async function init() {
 
 /* ---------- Hero Carousel ---------- */
 var HERO_BANNER = {
-    title: 'Meu Falso Divorcio',
+    title: 'Se Vingando da Traicao do Marido e da Estagiaria',
     channel: 'Dorama Exclusivo',
     image: 'img/banner-doramaplace.png'
 };
 
 function renderHero() {
-    heroVideoIndices = [];
-    HERO_VIDEO_IDS.forEach(function (hid) {
-        for (var i = 0; i < videos.length; i++) {
-            if (videos[i].id === hid) { heroVideoIndices.push(i); break; }
-        }
-    });
-    if (heroVideoIndices.length === 0) return;
-
-    heroSlideIndex = 0;
-    updateHeroContent(0);
-
-    var dotsContainer = document.getElementById('hero-dots');
-    dotsContainer.innerHTML = '';
-    for (var d = 0; d < heroVideoIndices.length; d++) {
-        var dot = document.createElement('button');
-        dot.className = 'hero-dot' + (d === 1 ? ' active' : '');
-        dot.setAttribute('data-slide', String(d));
-        dot.addEventListener('click', function () {
-            goToHeroSlide(parseInt(this.getAttribute('data-slide')));
-        });
-        dotsContainer.appendChild(dot);
-    }
-
-    document.getElementById('hero-prev').addEventListener('click', function () {
-        var prev = (heroSlideIndex - 1 + heroVideoIndices.length) % heroVideoIndices.length;
-        goToHeroSlide(prev);
-    });
-    document.getElementById('hero-next').addEventListener('click', function () {
-        var next = (heroSlideIndex + 1) % heroVideoIndices.length;
-        goToHeroSlide(next);
-    });
-
-}
-
-function updateHeroContent(slideIndex) {
-    if (slideIndex === 0) {
-        document.getElementById('hero-bg').style.backgroundImage = 'url(' + HERO_BANNER.image + ')';
-        document.getElementById('hero-title').textContent = HERO_BANNER.title;
-        document.getElementById('hero-channel').textContent = HERO_BANNER.channel;
-        document.getElementById('hero-btn').onclick = function () { openPlayer(0); };
-        return;
-    }
-    var vidIdx = heroVideoIndices[slideIndex];
-    var video = videos[vidIdx];
-    document.getElementById('hero-bg').style.backgroundImage = 'url(' + video.maxThumbnail + ')';
-    document.getElementById('hero-title').textContent = video.title;
-    document.getElementById('hero-channel').textContent = video.channel;
-    document.getElementById('hero-btn').onclick = function () { openHeroPlayer(vidIdx); };
+    document.getElementById('hero-bg').style.backgroundImage = 'url(' + HERO_BANNER.image + ')';
+    document.getElementById('hero-title').textContent = HERO_BANNER.title;
+    document.getElementById('hero-channel').textContent = HERO_BANNER.channel;
+    document.getElementById('hero-btn').onclick = function () { openPlayer(0); };
 }
 
 function goToHeroSlide(slideIndex) {
@@ -432,11 +388,27 @@ function setupSupport() {
     var modal = document.getElementById('support-modal');
     var closeBtn = document.getElementById('support-close');
     var backdrop = modal.querySelector('.support-backdrop');
-    var copyBtn = document.getElementById('support-copy-btn');
-    var emailEl = document.getElementById('support-email');
-    var copyLabel = document.getElementById('copy-label');
+    var faqView = document.getElementById('support-faq');
+    var refundView = document.getElementById('support-refund');
+    var loadingView = document.getElementById('support-loading');
+    var successView = document.getElementById('support-success');
+    var refundBtn = document.getElementById('faq-refund-btn');
+    var backBtn = document.getElementById('support-back');
+    var refundForm = document.getElementById('refund-form');
+    var refundCloseBtn = document.getElementById('refund-close-btn');
+
+    function showView(view) {
+        [faqView, refundView, loadingView, successView].forEach(function(v) {
+            v.style.display = 'none';
+        });
+        view.style.display = 'block';
+    }
 
     function openSupport() {
+        showView(faqView);
+        document.querySelectorAll('.faq-answer').forEach(function(a) { a.classList.remove('active'); });
+        document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('active'); });
+        if (refundForm) refundForm.reset();
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
@@ -450,13 +422,30 @@ function setupSupport() {
     closeBtn.addEventListener('click', closeSupport);
     backdrop.addEventListener('click', closeSupport);
 
-    copyBtn.addEventListener('click', function () {
-        var email = emailEl.textContent;
-        navigator.clipboard.writeText(email).then(function () {
-            copyLabel.textContent = 'Copiado!';
-            setTimeout(function () { copyLabel.textContent = 'Copiar'; }, 2000);
+    document.querySelectorAll('.faq-item[data-faq]').forEach(function(item) {
+        item.addEventListener('click', function() {
+            var id = this.getAttribute('data-faq');
+            var answer = document.getElementById('faq-answer-' + id);
+            var isActive = answer.classList.contains('active');
+            document.querySelectorAll('.faq-answer').forEach(function(a) { a.classList.remove('active'); });
+            document.querySelectorAll('.faq-item[data-faq]').forEach(function(i) { i.classList.remove('active'); });
+            if (!isActive) {
+                answer.classList.add('active');
+                this.classList.add('active');
+            }
         });
     });
+
+    refundBtn.addEventListener('click', function() { showView(refundView); });
+    backBtn.addEventListener('click', function() { showView(faqView); });
+
+    refundForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        showView(loadingView);
+        setTimeout(function() { showView(successView); }, 5000);
+    });
+
+    refundCloseBtn.addEventListener('click', closeSupport);
 }
 
 /* ---------- Back to Top ---------- */
